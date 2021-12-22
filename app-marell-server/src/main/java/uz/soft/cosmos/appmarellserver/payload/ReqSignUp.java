@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ReqSignUp {
+    private String lastName;
+    private String firstName;
+    private String patron;
+    private String login;
+    private String inviteId;
+    private String email;
     private String phoneNumber;
     private String password;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String patron;
-    private String inviteId;
-
 }

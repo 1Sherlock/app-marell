@@ -32,11 +32,11 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
-        return userRepository.findByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("Bunday telefon raqam topilmadi: " + phoneNumber));
+        return userRepository.findByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("Номер телефона не найдено: " + phoneNumber));
     }
 
     public UserDetails loadUserById(UUID userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("Bunday id topilmadi: " + userId));
+        return userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("ИД не найдено: " + userId));
     }
 
 
@@ -44,7 +44,7 @@ public class AuthService implements UserDetailsService {
         Optional<User> optionalUser = userRepository.findByPhoneNumber(reqSignUp.getPhoneNumber());
 
         if (optionalUser.isPresent()) {
-            return new ApiResponse(false, "Bunday foydalanuvchi ro'yxatdan o'tgan!");
+            return new ApiResponse(false, "Пользователь с такими данными зарегистрирован!");
         } else {
             userRepository.save(
                     new User(
@@ -56,7 +56,7 @@ public class AuthService implements UserDetailsService {
                             reqSignUp.getEmail(),
                             reqSignUp.getInviteId()
                     ));
-            return new ApiResponse(true, "Tizimdan muvaffaqiyatli ro'yxatdan o'tdingiz.");
+            return new ApiResponse(true, "Регистрация прошла успешно.");
         }
     }
 
