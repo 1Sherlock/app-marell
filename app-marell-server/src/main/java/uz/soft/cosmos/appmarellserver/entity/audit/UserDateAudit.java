@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import uz.rootec.appstoremagazinserver.entity.User;
+import uz.soft.cosmos.appmarellserver.entity.User;
 
 import javax.persistence.*;
 
