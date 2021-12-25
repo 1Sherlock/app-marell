@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/app-marell.iml" filepath="$PROJECT_DIR$/.idea/app-marell.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app-marell-admin/app-marell-admin.iml" filepath="$PROJECT_DIR$/app-marell-admin/app-marell-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../app-marell-client/app-marell-client.iml" filepath="$PROJECT_DIR$/../app-marell-client/app-marell-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/app-marell-server/app-marell-server.iml" filepath="$PROJECT_DIR$/app-marell-server/app-marell-server.iml" />
     </modules>
   </component>
