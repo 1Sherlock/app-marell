@@ -35,6 +35,9 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(name = "patron")
     private String patron;
 
+    @Column(unique = true)
+    private String serial;
+
     @Column(name = "login", unique = true)
     private String login;
 
@@ -53,14 +56,17 @@ public class User extends AbstractEntity implements UserDetails {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<Role> roles;
 
-    public User(String phoneNumber, String password, String lastName, String firstName, List<Role> roles, String email, String inviteId) {
+    public User(String phoneNumber, String password, String lastName, String firstName, String patron, List<Role> roles, String email, String inviteId, String serial, String login) {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.lastName = lastName;
         this.firstName = firstName;
+        this.patron = patron;
         this.roles = roles;
         this.email = email;
         this.inviteId = inviteId;
+        this.serial = serial;
+        this.login = login;
     }
 
     public User(String lastName, String firstName, List<Role> roles, String email, String inviteId) {

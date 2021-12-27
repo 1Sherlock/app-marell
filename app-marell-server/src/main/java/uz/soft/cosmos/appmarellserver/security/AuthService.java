@@ -15,7 +15,9 @@ import uz.soft.cosmos.appmarellserver.repository.RoleRepository;
 import uz.soft.cosmos.appmarellserver.repository.UserRepository;
 
 
+import java.util.Locale;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -46,15 +48,32 @@ public class AuthService implements UserDetailsService {
         if (optionalUser.isPresent()) {
             return new ApiResponse(false, "Пользователь с такими данными зарегистрирован!");
         } else {
+            String yourValue = "";
+
+            while (yourValue.length() == 0){
+                Random rand = new Random();
+                yourValue = String.format((Locale)null, //don't want any thousand separators
+                        "1%03d%04d%04d%04d",
+                        rand.nextInt(1000),
+                        rand.nextInt(10000),
+                        rand.nextInt(10000),
+                        rand.nextInt(10000));
+                if (userRepository.existsBySerial(yourValue)){
+                    yourValue = "";
+                }
+            }
             userRepository.save(
                     new User(
                             reqSignUp.getPhoneNumber(),
                             passwordEncoder.encode(reqSignUp.getPassword()),
                             reqSignUp.getLastName(),
                             reqSignUp.getFirstName(),
+                            reqSignUp.getPatron(),
                             roleRepository.findAllByName(RoleName.ROLE_USER),
                             reqSignUp.getEmail(),
-                            reqSignUp.getInviteId()
+                            reqSignUp.getInviteId(),
+                            yourValue,
+                            reqSignUp.getLogin()
                     ));
             return new ApiResponse(true, "Регистрация прошла успешно.");
         }
