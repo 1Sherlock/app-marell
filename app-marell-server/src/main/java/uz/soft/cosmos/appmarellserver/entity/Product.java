@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import uz.soft.cosmos.appmarellserver.entity.enums.ProductType;
 import uz.soft.cosmos.appmarellserver.entity.template.AbstractEntity;
 
 import javax.persistence.*;
@@ -37,5 +38,6 @@ public class Product extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Attachment photo;
 
-
+    @Enumerated
+    private ProductType type;
 }
