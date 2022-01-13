@@ -54,7 +54,9 @@ public class AuthService implements UserDetailsService {
                             reqSignUp.getFirstName(),
                             roleRepository.findAllByName(RoleName.ROLE_USER),
                             reqSignUp.getEmail(),
-                            reqSignUp.getInviteId()
+                            reqSignUp.getInviteId(),
+                            reqSignUp.getPatron(),
+                            reqSignUp.getLogin()
                     ));
             return new ApiResponse(true, "Регистрация прошла успешно.");
         }
@@ -67,12 +69,12 @@ public class AuthService implements UserDetailsService {
 
             User user = optionalUser.get();
             if (passwordEncoder.matches(reqSignIn.getPassword(), user.getPassword())) {
-                return new ApiResponse(true, "Ma'lumotlar to'g'ri kiritildi!");
+                return new ApiResponse(true, "ok");
             } else {
-                return new ApiResponse(false, "Parol xato kiritildi");
+                return new ApiResponse(false, "Логин или пароль введено неправильно");
             }
         } else {
-            return new ApiResponse(false, "Bunday foydalanuvchi ro'yhatdan o'tmagan!");
+            return new ApiResponse(false, "Пользователь с такими данными не зарегистрирован!");
         }
     }
 }

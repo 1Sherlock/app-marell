@@ -1,11 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'antd/dist/antd.css';
+import 'react-toastify/dist/ReactToastify.css';
+import "bootstrap/dist/css/bootstrap.min.css"
 import App from './App';
+import {applyMiddleware, createStore} from "redux";
+import {rootReducer} from "./redux/reducers/rootReducer";
+import {Provider} from "react-redux";
+import thunk from "redux-thunk";
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
