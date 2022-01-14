@@ -1,11 +1,11 @@
 import axios from "axios";
 import {API_PATH, CONFIG, TOKEN_NAME} from "../../tools/constants";
-import {UPDATESTATE} from "../types/authType";
+import {AUTH_UPDATE_STATE} from "../types/authType";
 import {toast} from "react-toastify";
 
 export function updateState(state) {
     return {
-        type: UPDATESTATE,
+        type: AUTH_UPDATE_STATE,
         payload: state
     }
 }

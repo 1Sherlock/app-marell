@@ -1,4 +1,4 @@
-import {UPDATESTATE} from "../types/authType";
+import {AUTH_UPDATE_STATE} from "../types/authType";
 
 const initialState = {
     isLoading: false,
@@ -7,7 +7,7 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
     switch (action.type){
-        case UPDATESTATE:
+        case AUTH_UPDATE_STATE:
             return {
                 ...state,
                 ...action.payload
