@@ -1,11 +1,14 @@
 package uz.soft.cosmos.appmarellserver.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import uz.soft.cosmos.appmarellserver.entity.User;
 import uz.soft.cosmos.appmarellserver.payload.ApiResponse;
@@ -53,16 +56,16 @@ public class UserController {
 
     @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/getUsers")
+//    public ResponseEntity<?> getUsers(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size, @RequestParam(defaultValue = "") String search) {
     public ResponseEntity<?> getUsers() {
         try {
+//            Page<User> all = userRepository.findAllByPhoneNumberContainsOrLastNameContainsOrFirstNameContainsOrderByCreatedAtDesc(search, search, search, PageRequest.of(page, size));
             List<User> all = userRepository.findAll();
             return ResponseEntity.ok(new ApiResponse(true, "success", all));
         } catch (Exception e) {
             return ResponseEntity.ok(new ApiResponse(false, e.getMessage()));
         }
     }
-
-
 
 
 }
