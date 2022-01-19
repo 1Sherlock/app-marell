@@ -10,6 +10,7 @@ import {
     FileOutlined,
     TeamOutlined,
     UserOutlined,
+    AppstoreOutlined
 } from '@ant-design/icons';
 import "./index.scss";
 import {Switch, Route, Link} from "react-router-dom";
@@ -17,10 +18,8 @@ import Dashboard from "../../pages/Dashboard";
 import Users from "../../pages/Users";
 import AdminStore from "../../pages/Store";
 
-
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
-
 
 const AdminLayout = (props) => {
     console.log(props.history.location.pathname.split("/"))
@@ -40,7 +39,7 @@ const AdminLayout = (props) => {
                     <Menu.Item key="/admin/users" icon={<TeamOutlined/>}>
                         <Link to="/admin/users" className="text-decoration-none">Пользователи</Link>
                     </Menu.Item>
-                    <Menu.Item key="/admin/store" icon={<TeamOutlined/>}>
+                    <Menu.Item key="/admin/store" icon={<AppstoreOutlined/>}>
                         <Link to="/admin/store" className="text-decoration-none">Хранилише</Link>
                     </Menu.Item>
                 </Menu>

@@ -56,7 +56,8 @@ public class AuthService implements UserDetailsService {
                             reqSignUp.getEmail(),
                             reqSignUp.getInviteId(),
                             reqSignUp.getPatron(),
-                            reqSignUp.getLogin()
+                            reqSignUp.getLogin(),
+                            null
                     ));
             return new ApiResponse(true, "Регистрация прошла успешно.");
         }

@@ -1,20 +1,16 @@
 package uz.soft.cosmos.appmarellserver.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.soft.cosmos.appmarellserver.entity.Category;
-import uz.soft.cosmos.appmarellserver.entity.template.AbstractEntity;
 import uz.soft.cosmos.appmarellserver.payload.ApiResponse;
 import uz.soft.cosmos.appmarellserver.payload.ReqNameId;
 import uz.soft.cosmos.appmarellserver.repository.CategoryRepository;
 
-import javax.persistence.Entity;
 import java.util.UUID;
-
 
 @RestController
 @RequestMapping("/api/category")

@@ -12,6 +12,7 @@ import uz.soft.cosmos.appmarellserver.entity.template.AbstractEntity;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Sherlock on 01.06.2021.
@@ -48,12 +49,14 @@ public class User extends AbstractEntity implements UserDetails {
 
     private String inviteId;
 
+    private UUID partnerId;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<Role> roles;
 
-    public User(String phoneNumber, String password, String lastName, String firstName, List<Role> roles, String email, String inviteId, String patron, String login) {
+    public User(String phoneNumber, String password, String lastName, String firstName, List<Role> roles, String email, String inviteId, String patron, String login, UUID partnerId) {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.lastName = lastName;
@@ -63,6 +66,7 @@ public class User extends AbstractEntity implements UserDetails {
         this.inviteId = inviteId;
         this.patron = patron;
         this.login = login;
+        this.partnerId = partnerId;
     }
 
     public User(String lastName, String firstName, List<Role> roles, String email, String inviteId) {

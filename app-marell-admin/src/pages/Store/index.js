@@ -114,6 +114,9 @@ const AdminStore = (props) => {
                                onChange={searchCategory}/>
                         <Table columns={columns} dataSource={props.searchCategories}/>
                     </TabPane>
+                    <TabPane tab="Товары" key="2">
+
+                    </TabPane>
                 </Tabs>
             </div>
         </div>
