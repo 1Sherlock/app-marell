@@ -1,7 +1,7 @@
 /**
  * Created by Sherlock on 13.01.2022.
  */
-import React from 'react';
+import React, {useState} from 'react';
 
 import {Layout, Menu, Breadcrumb} from 'antd';
 import {
@@ -15,6 +15,7 @@ import "./index.scss";
 import {Switch, Route, Link} from "react-router-dom";
 import Dashboard from "../../pages/Dashboard";
 import Users from "../../pages/Users";
+import AdminStore from "../../pages/Store";
 
 
 const {Header, Content, Footer, Sider} = Layout;
@@ -24,9 +25,11 @@ const {SubMenu} = Menu;
 const AdminLayout = (props) => {
     console.log(props.history.location.pathname.split("/"))
 
+    const [collapsed, setCollapsed] = useState(false);
+
     return (
         <Layout style={{minHeight: '100vh'}}>
-            <Sider collapsible collapsed={false}>
+            <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)}>
                 <div className="layout-logo">
                     <a href="#" target="_blank"><img src="/assets/icons/logo.svg" alt="logo.svg"/></a>
                 </div>
@@ -36,6 +39,9 @@ const AdminLayout = (props) => {
                     </Menu.Item>
                     <Menu.Item key="/admin/users" icon={<TeamOutlined/>}>
                         <Link to="/admin/users" className="text-decoration-none">Пользователи</Link>
+                    </Menu.Item>
+                    <Menu.Item key="/admin/store" icon={<TeamOutlined/>}>
+                        <Link to="/admin/store" className="text-decoration-none">Хранилише</Link>
                     </Menu.Item>
                 </Menu>
             </Sider>
@@ -51,6 +57,7 @@ const AdminLayout = (props) => {
                         <Switch>
                             <Route path="/admin/dashboard" exact component={Dashboard}/>
                             <Route path="/admin/users" exact component={Users}/>
+                            <Route path="/admin/store" exact component={AdminStore}/>
                         </Switch>
                     </div>
                 </Content>
