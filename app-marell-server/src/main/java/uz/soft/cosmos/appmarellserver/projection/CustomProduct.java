@@ -1,7 +1,6 @@
 package uz.soft.cosmos.appmarellserver.projection;
 
 import org.springframework.beans.factory.annotation.Value;
-import uz.soft.cosmos.appmarellserver.component.ValueHelper;
 import uz.soft.cosmos.appmarellserver.entity.enums.ProductType;
 
 import java.sql.Timestamp;
@@ -30,8 +29,8 @@ public interface CustomProduct {
 
     AttachmentInfo getPhoto();
 
-//    @Value("#{}")
-//    String getPartner();
+    @Value("#{@ValueHelper.getPartner(target.createdBy.partnerId)}")
+    String getPartner();
 
     interface CategoryInfo {
         UUID getId();
