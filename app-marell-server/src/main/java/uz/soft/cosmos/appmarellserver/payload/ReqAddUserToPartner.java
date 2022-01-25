@@ -6,17 +6,14 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
+/**
+ * Created by Sherlock on 25.01.2022.
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReqNameId {
-    private String name;
-    private UUID id;
-
-    private String description;
-
-    public ReqNameId(String name, UUID id) {
-        this.name = name;
-        this.id = id;
-    }
+public class ReqAddUserToPartner {
+    private UUID user;
+    private UUID partner;
 }

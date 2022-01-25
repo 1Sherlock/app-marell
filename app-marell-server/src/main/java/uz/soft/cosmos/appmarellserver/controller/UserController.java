@@ -3,20 +3,22 @@ package uz.soft.cosmos.appmarellserver.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import uz.soft.cosmos.appmarellserver.entity.Role;
 import uz.soft.cosmos.appmarellserver.entity.User;
+import uz.soft.cosmos.appmarellserver.entity.enums.RoleName;
 import uz.soft.cosmos.appmarellserver.payload.ApiResponse;
+import uz.soft.cosmos.appmarellserver.payload.ReqAddUserToPartner;
 import uz.soft.cosmos.appmarellserver.payload.ResUser;
 import uz.soft.cosmos.appmarellserver.repository.RoleRepository;
 import uz.soft.cosmos.appmarellserver.repository.UserRepository;
 import uz.soft.cosmos.appmarellserver.security.CurrentUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,6 +68,25 @@ public class UserController {
             return ResponseEntity.ok(new ApiResponse(false, e.getMessage()));
         }
     }
+
+
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+    @PostMapping("/addUserToPartner")
+    public HttpEntity<?> addUserToPartner(@RequestBody ReqAddUserToPartner reqAddUserToPartner){
+        try {
+            User user = userRepository.getOne(reqAddUserToPartner.getUser());
+
+            user.setPartnerId(reqAddUserToPartner.getPartner());
+            user.setRoles(roleRepository.findAllByName(RoleName.ROLE_PARTNER));
+            
+            userRepository.save(user);
+
+            return ResponseEntity.ok(new ApiResponse(true, "Сохранено"));
+        }catch (Exception e){
+            return ResponseEntity.ok(new ApiResponse(false, e.getMessage()));
+        }
+    }
+
 
 
 }

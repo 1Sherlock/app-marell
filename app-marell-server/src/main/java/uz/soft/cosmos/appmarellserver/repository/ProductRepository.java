@@ -13,4 +13,5 @@ import java.util.UUID;
 public interface ProductRepository extends JpaRepository<Product, UUID> {
     Boolean existsByName(String name);
     List<CustomProduct> findAllByOrderByCreatedAtDesc();
+    List<CustomProduct> findAllByCreatedBy_PartnerIdOrderByCreatedAtDesc(UUID partnerId);
 }

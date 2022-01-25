@@ -81,6 +81,15 @@ public class ProductController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PARTNER')")
+    @GetMapping("/allByPartner/{id}")
+    public HttpEntity<?> getAllByPartner(@PathVariable UUID id){
+        try {
+            return ResponseEntity.ok(new ApiResponse(true, "success", productRepository.findAllByCreatedBy_PartnerIdOrderByCreatedAtDesc(id)));
+        } catch (Exception e){
+            return ResponseEntity.ok(new ApiResponse(false, e.getMessage()));
+        }
+    }
 
 }
 
