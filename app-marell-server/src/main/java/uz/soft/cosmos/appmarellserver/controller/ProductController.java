@@ -26,7 +26,7 @@ public class ProductController {
     @Autowired
     private AttachmentRepository attachmentRepository;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PARTNER')")
     @PostMapping("/save")
     public HttpEntity<?> save(@RequestBody ReqProduct reqProduct){
         try {
@@ -49,6 +49,8 @@ public class ProductController {
             if (reqProduct.getPhoto() != null)
                 product.setPhoto(attachmentRepository.getOne(reqProduct.getPhoto()));
 
+            productRepository.save(product);
+
             if (reqProduct.getId() == null) {
                 return ResponseEntity.ok(new ApiResponse(true, "Добавлено"));
             } else {
@@ -60,7 +62,7 @@ public class ProductController {
         }
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'PARTNER')")
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteProduct(@PathVariable UUID id){
         try {

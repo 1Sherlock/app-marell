@@ -10,13 +10,15 @@ import {
     FileOutlined,
     TeamOutlined,
     UserOutlined,
-    AppstoreOutlined
+    AppstoreOutlined,
+    ApartmentOutlined
 } from '@ant-design/icons';
 import "./index.scss";
 import {Switch, Route, Link} from "react-router-dom";
 import Dashboard from "../../pages/Dashboard";
 import Users from "../../pages/Users";
 import AdminStore from "../../pages/Store";
+import Partners from "../../pages/Partners";
 
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
@@ -42,6 +44,9 @@ const AdminLayout = (props) => {
                     <Menu.Item key="/admin/store" icon={<AppstoreOutlined/>}>
                         <Link to="/admin/store" className="text-decoration-none">Хранилише</Link>
                     </Menu.Item>
+                    <Menu.Item key="/admin/partners" icon={<ApartmentOutlined />}>
+                        <Link to="/admin/partners" className="text-decoration-none">Партнеры</Link>
+                    </Menu.Item>
                 </Menu>
             </Sider>
             <Layout className="site-layout">
@@ -57,6 +62,7 @@ const AdminLayout = (props) => {
                             <Route path="/admin/dashboard" exact component={Dashboard}/>
                             <Route path="/admin/users" exact component={Users}/>
                             <Route path="/admin/store" exact component={AdminStore}/>
+                            <Route path="/admin/partners" exact component={Partners}/>
                         </Switch>
                     </div>
                 </Content>

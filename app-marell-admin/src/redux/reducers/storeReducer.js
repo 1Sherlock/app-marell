@@ -6,10 +6,18 @@ import {STORE_UPDATE_STATE} from "../types/authType";
 const initialState = {
     isLoading: false,
     isModalVisible: false,
+    isModalVisibleProduct: false,
     categories: [],
+    products: [],
     searchCategories: [],
+    searchProducts: [],
     selectedId: null,
+    selectedIdProduct: null,
     isDeleteModalShow: false,
+    isDeleteModalShowProduct: false,
+    selectedCategory: null,
+    selectedProduct: null,
+    photo: null
 }
 
 export const storeReducer = (state = initialState, action) => {

@@ -87,6 +87,20 @@ public class UserController {
         }
     }
 
+    @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN', 'ROLE_PARTNER')")
+    @PostMapping("/deleteUserFromPartner")
+    public HttpEntity<?> deleteUserFromPartner(@RequestBody ReqAddUserToPartner reqAddUserToPartner){
+        try {
+            User user = userRepository.getOne(reqAddUserToPartner.getUser());
 
+            user.setPartnerId(null);
+            user.setRoles(roleRepository.findAllByName(RoleName.ROLE_USER));
 
+            userRepository.save(user);
+
+            return ResponseEntity.ok(new ApiResponse(true, "Сохранено"));
+        }catch (Exception e){
+            return ResponseEntity.ok(new ApiResponse(false, e.getMessage()));
+        }
+    }
 }

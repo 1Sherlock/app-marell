@@ -16,4 +16,8 @@ import java.util.UUID;
 public class ReqAddUserToPartner {
     private UUID user;
     private UUID partner;
+
+    public ReqAddUserToPartner(UUID user){
+        this.user = user;
+    }
 }
