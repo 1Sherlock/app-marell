@@ -3,6 +3,9 @@ import {USER_UPDATE_STATE} from "../types/authType";
 const initialState = {
     isLoading: false,
     users: [],
+    isModalVisible: false,
+    selectedUser: null,
+    selectedRole: null
     // page: 0,
     // size: 2,
     // search: "",

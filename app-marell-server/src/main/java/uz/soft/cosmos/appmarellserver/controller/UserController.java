@@ -13,7 +13,9 @@ import uz.soft.cosmos.appmarellserver.entity.User;
 import uz.soft.cosmos.appmarellserver.entity.enums.RoleName;
 import uz.soft.cosmos.appmarellserver.payload.ApiResponse;
 import uz.soft.cosmos.appmarellserver.payload.ReqAddUserToPartner;
+import uz.soft.cosmos.appmarellserver.payload.ReqChangeRole;
 import uz.soft.cosmos.appmarellserver.payload.ResUser;
+import uz.soft.cosmos.appmarellserver.projection.CustomUser;
 import uz.soft.cosmos.appmarellserver.repository.RoleRepository;
 import uz.soft.cosmos.appmarellserver.repository.UserRepository;
 import uz.soft.cosmos.appmarellserver.security.CurrentUser;
@@ -62,10 +64,33 @@ public class UserController {
     public ResponseEntity<?> getUsers() {
         try {
 //            Page<User> all = userRepository.findAllByPhoneNumberContainsOrLastNameContainsOrFirstNameContainsOrderByCreatedAtDesc(search, search, search, PageRequest.of(page, size));
-            List<User> all = userRepository.findAll();
+            List<CustomUser> all = userRepository.findAllByOrderByCreatedAtDesc();
             return ResponseEntity.ok(new ApiResponse(true, "success", all));
         } catch (Exception e) {
             return ResponseEntity.ok(new ApiResponse(false, e.getMessage()));
+        }
+    }
+
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+    @PostMapping("/changeRole")
+    public HttpEntity<?> changeRole(@RequestBody ReqChangeRole reqChangeRole){
+        try {
+            User user = userRepository.getOne(reqChangeRole.getUserId());
+
+            user.setRoles(roleRepository.findAllByName(reqChangeRole.getRole()));
+
+            if (reqChangeRole.getRole().equals(RoleName.ROLE_USER)){
+                user.setPartnerId(null);
+            } else {
+                user.setPartnerId(reqChangeRole.getPartner());
+            }
+
+            userRepository.save(user);
+
+            return ResponseEntity.ok(new ApiResponse(true, "Сохранено"));
+
+        } catch (Exception e){
+            return ResponseEntity.ok(new ApiResponse(false, e.getLocalizedMessage()));
         }
     }
 
