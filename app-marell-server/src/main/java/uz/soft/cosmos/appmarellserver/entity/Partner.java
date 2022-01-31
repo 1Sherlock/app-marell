@@ -7,6 +7,8 @@ import uz.soft.cosmos.appmarellserver.entity.template.AbstractEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,5 +20,9 @@ public class Partner extends AbstractEntity {
     @Column(columnDefinition = "text")
     private String description;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Attachment photo;
+
+    private String category;
 }
 

@@ -13,6 +13,8 @@ public class ReqNameId {
     private String name;
     private UUID id;
 
+    private UUID photo;
+    private String category;
     private String description;
 
     public ReqNameId(String name, UUID id) {

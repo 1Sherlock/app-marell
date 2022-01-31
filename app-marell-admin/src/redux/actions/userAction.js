@@ -21,7 +21,7 @@ export const getUsers = (page, size, search) => (dispatch) => {
 export const changeRole = (e, v) => (dispatch, getState) => {
     dispatch(updateState({isLoading: true}))
 
-    axios.post(API_PATH + "user/changeRole", {...v,userId: getState().user.selectedUser.id, partner: (v.role === "ROLE_ADMIN" ? getState().partner.partners.filter(item => item.name === "ADMIN")[0].id : v.partner)}, CONFIG)
+    axios.post(API_PATH + "user/changeRole", {...v,userId: getState().user.selectedUser.id, partner: (v.role === "ROLE_ADMIN" ? getState().partner.partners.filter(item => item.name === "Marell")[0].id : v.partner)}, CONFIG)
         .then(res => {
             toast.success(res.data.message);
             dispatch(updateState({selectedRole: null, selectedUser: null, isModalVisible: false}))

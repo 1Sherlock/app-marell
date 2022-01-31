@@ -16,9 +16,11 @@ export function updateState(state) {
 }
 
 export const save = (e, values) => (dispatch, getState) => {
-    dispatch(updateState({isLoading: true}));
+    if (getState().partner.photo){
 
-    axios.post(API_PATH + "partner/save", {...values, id: getState().partner.selectedPartner?.id}, CONFIG)
+        dispatch(updateState({isLoading: true}));
+
+    axios.post(API_PATH + "partner/save", {...values, id: getState().partner.selectedPartner?.id, photo: getState().partner.photo}, CONFIG)
         .then(res => {
             if (res.data.success){
                 toast.success(res.data.message);
@@ -34,6 +36,9 @@ export const save = (e, values) => (dispatch, getState) => {
         .finally(() => {
             dispatch(updateState({isLoading: false}))
         })
+    } else {
+        toast.error("Выберите фото партнера")
+    }
 }
 
 export const getPartners = (page) => (dispatch) => {
@@ -67,5 +72,14 @@ export const deletePartner = () => (dispatch, getState) => {
         })
         .finally(() => {
             dispatch(updateState({isLoading: false}))
+        })
+}
+
+export const uploadPhoto = (file) => (dispatch) => {
+    const data = new FormData();
+    data.append("file", file);
+    axios.post(API_PATH + "file/save", data)
+        .then((res) => {
+            dispatch(updateState({photo: res.data.id}));
         })
 }

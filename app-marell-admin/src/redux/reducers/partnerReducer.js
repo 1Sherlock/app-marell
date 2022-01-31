@@ -11,6 +11,7 @@ const initialState = {
     selectedId: null,
     isDeleteModalShow: false,
     selectedPartner: null,
+    photo:null
 }
 
 export const partnerReducer = (state = initialState, action) => {

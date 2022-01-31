@@ -9,6 +9,7 @@ import uz.soft.cosmos.appmarellserver.entity.Partner;
 import uz.soft.cosmos.appmarellserver.payload.ApiResponse;
 import uz.soft.cosmos.appmarellserver.payload.ReqAddUserToPartner;
 import uz.soft.cosmos.appmarellserver.payload.ReqNameId;
+import uz.soft.cosmos.appmarellserver.repository.AttachmentRepository;
 import uz.soft.cosmos.appmarellserver.repository.PartnerRepository;
 
 import java.util.UUID;
@@ -23,6 +24,9 @@ public class PartnerController {
     @Autowired
     private PartnerRepository partnerRepository;
 
+    @Autowired
+    private AttachmentRepository attachmentRepository;
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/save")
     public HttpEntity<?> save(@RequestBody ReqNameId reqNameId) {
@@ -34,8 +38,12 @@ public class PartnerController {
             else
                 partner = partnerRepository.getOne(reqNameId.getId());
 
+            if (reqNameId.getPhoto() != null)
+                partner.setPhoto(attachmentRepository.getOne(reqNameId.getPhoto()));
+
             partner.setName(reqNameId.getName());
             partner.setDescription(reqNameId.getDescription());
+            partner.setCategory(reqNameId.getCategory());
 
             partnerRepository.save(partner);
 
@@ -64,7 +72,4 @@ public class PartnerController {
             return ResponseEntity.ok(new ApiResponse(false, e.getMessage()));
         }
     }
-
-
-
 }

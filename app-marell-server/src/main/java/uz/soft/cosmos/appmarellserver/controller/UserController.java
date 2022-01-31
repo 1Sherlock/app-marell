@@ -95,37 +95,37 @@ public class UserController {
     }
 
 
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
-    @PostMapping("/addUserToPartner")
-    public HttpEntity<?> addUserToPartner(@RequestBody ReqAddUserToPartner reqAddUserToPartner){
-        try {
-            User user = userRepository.getOne(reqAddUserToPartner.getUser());
-
-            user.setPartnerId(reqAddUserToPartner.getPartner());
-            user.setRoles(roleRepository.findAllByName(RoleName.ROLE_PARTNER));
-            
-            userRepository.save(user);
-
-            return ResponseEntity.ok(new ApiResponse(true, "Сохранено"));
-        }catch (Exception e){
-            return ResponseEntity.ok(new ApiResponse(false, e.getMessage()));
-        }
-    }
-
-    @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN', 'ROLE_PARTNER')")
-    @PostMapping("/deleteUserFromPartner")
-    public HttpEntity<?> deleteUserFromPartner(@RequestBody ReqAddUserToPartner reqAddUserToPartner){
-        try {
-            User user = userRepository.getOne(reqAddUserToPartner.getUser());
-
-            user.setPartnerId(null);
-            user.setRoles(roleRepository.findAllByName(RoleName.ROLE_USER));
-
-            userRepository.save(user);
-
-            return ResponseEntity.ok(new ApiResponse(true, "Сохранено"));
-        }catch (Exception e){
-            return ResponseEntity.ok(new ApiResponse(false, e.getMessage()));
-        }
-    }
+//    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+//    @PostMapping("/addUserToPartner")
+//    public HttpEntity<?> addUserToPartner(@RequestBody ReqAddUserToPartner reqAddUserToPartner){
+//        try {
+//            User user = userRepository.getOne(reqAddUserToPartner.getUser());
+//
+//            user.setPartnerId(reqAddUserToPartner.getPartner());
+//            user.setRoles(roleRepository.findAllByName(RoleName.ROLE_PARTNER));
+//
+//            userRepository.save(user);
+//
+//            return ResponseEntity.ok(new ApiResponse(true, "Сохранено"));
+//        }catch (Exception e){
+//            return ResponseEntity.ok(new ApiResponse(false, e.getMessage()));
+//        }
+//    }
+//
+//    @PreAuthorize(value = "hasAnyRole('ROLE_ADMIN', 'ROLE_PARTNER')")
+//    @PostMapping("/deleteUserFromPartner")
+//    public HttpEntity<?> deleteUserFromPartner(@RequestBody ReqAddUserToPartner reqAddUserToPartner){
+//        try {
+//            User user = userRepository.getOne(reqAddUserToPartner.getUser());
+//
+//            user.setPartnerId(null);
+//            user.setRoles(roleRepository.findAllByName(RoleName.ROLE_USER));
+//
+//            userRepository.save(user);
+//
+//            return ResponseEntity.ok(new ApiResponse(true, "Сохранено"));
+//        }catch (Exception e){
+//            return ResponseEntity.ok(new ApiResponse(false, e.getMessage()));
+//        }
+//    }
 }

@@ -34,7 +34,7 @@ const AdminStore = (props) => {
     };
 
     const showModalProduct = () => {
-        props.updateState({isModalVisibleProduct: !props.isModalVisibleProduct, selectedProduct: null});
+        props.updateState({isModalVisibleProduct: !props.isModalVisibleProduct, selectedProduct: null, photo: null});
     };
 
     const handleOk = () => {

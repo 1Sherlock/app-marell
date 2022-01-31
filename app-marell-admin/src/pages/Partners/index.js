@@ -10,8 +10,10 @@ import {
     save,
     updateState,
     deletePartner,
-    getPartners
+    getPartners,
+    uploadPhoto
 } from "../../redux/actions/partnerAction";
+import {API_PATH} from "../../tools/constants";
 
 const {TabPane} = Tabs;
 const Partners = (props) => {
@@ -23,7 +25,7 @@ const Partners = (props) => {
     let form = useRef();
 
     const showModal = () => {
-        props.updateState({isModalVisible: !props.isModalVisible, selectedPartner: null});
+        props.updateState({isModalVisible: !props.isModalVisible, selectedPartner: null, photo: null});
     };
 
     const handleOk = () => {
@@ -46,6 +48,21 @@ const Partners = (props) => {
             key: 'name'
         },
         {
+            title: 'Категория',
+            dataIndex: 'category',
+            key: 'category'
+        },
+        {
+            title: 'Фото',
+            dataIndex: 'photo',
+            key: 'photo',
+            render: (text, record) => (
+                <>
+                    <img src={API_PATH + "file/get/" + record.photo?.id} alt="photo" width="100"/>
+                </>
+            )
+        },
+        {
             title: 'Информация',
             dataIndex: 'description',
             key: 'description'
@@ -63,7 +80,8 @@ const Partners = (props) => {
                 <>
                         <Button type='primary' ghost className='mr-2' onClick={() => props.updateState({
                             selectedPartner: record,
-                            isModalVisible: true
+                            isModalVisible: true,
+                            photo: record.photo?.id
                         })}>Изменить</Button>
                         <Button type='primary' danger onClick={() => props.updateState({
                             selectedId: record.id,
@@ -91,9 +109,28 @@ const Partners = (props) => {
                         onValidSubmit={props.save}
                         autoComplete="off"
                     >
+                        <div className="uploadPhoto">
+                            {props.photo ?
+                                <img src={API_PATH + "file/get/" + props.photo}      name="photo1" className="w-100 photo"/> :
+                                <></>
+                            }
+                            <label htmlFor="file" className="text-center w-100 bg-secondary text-white my-3 rounded py-2" style={{cursor: "pointer"}}>
+                                <img src="/assets/icons/camera.png" alt="camera.svg" className="camera  mr-3" style={{marginTop: "-5px"}}/>
+                                Загрузить фото товара</label>
+                        </div>
+
+                        <input type="file" className="d-none"   id="file"
+                               onChange={(e) => props.uploadPhoto(e.target.files[0])}/>
+
                         <AvField
                             label="Название партнера"
                             name="name"
+                            required
+                            type="text"
+                        />
+                        <AvField
+                            label="Категория партнера"
+                            name="category"
                             required
                             type="text"
                         />
@@ -136,6 +173,7 @@ const mapStateToProps = (state) => {
         isDeleteModalShow: state.partner.isDeleteModalShow,
         selectedPartner: state.partner.selectedPartner,
         selectedId: state.partner.selectedId,
+        photo: state.partner.photo,
         me: state.auth.me,
     }
 }
@@ -145,4 +183,5 @@ export default connect(mapStateToProps, {
     updateState,
     getPartners,
     deletePartner,
+    uploadPhoto
 })(Partners);
