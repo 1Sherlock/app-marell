@@ -51,7 +51,7 @@ public class DataLoader implements CommandLineRunner {
         if (initialMode.equals("always")) {
 
             Path currentDir = Paths.get(".");
-            Path path = Paths.get(currentDir + "\\app-marell-server\\" + "logo.svg");
+            Path path = Paths.get(currentDir + "/logo.svg");
 
             Attachment image = new Attachment();
             image.setName(UUID.randomUUID().toString());
