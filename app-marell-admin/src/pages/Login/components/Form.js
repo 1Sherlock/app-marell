@@ -37,9 +37,3 @@ const LoginForm = (props) => {
         </Form>
     );
 };
-const mapStateToProps = (state) => {
-    return {
-        isLoading: state.auth.isLoading
-    }
-}
-export default connect(mapStateToProps, {login})(LoginForm);
